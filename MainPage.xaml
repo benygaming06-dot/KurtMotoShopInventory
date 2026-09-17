@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KurtDhylanMotoShopInventory.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource Dark}"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <!-- Header -->
+        <Grid Padding="18,18,18,10" ColumnDefinitions="*,Auto" Row="0">
+            <VerticalStackLayout>
+                <Label Text="KURT DHYLAN" FontSize="26" FontAttributes="Bold" TextColor="White"/>
+                <Label Text="MOTO SHOP INVENTORY" FontSize="12" CharacterSpacing="2" TextColor="{StaticResource Red}"/>
+            </VerticalStackLayout>
+            <Frame Grid.Column="1" Padding="0" WidthRequest="58" HeightRequest="58"
+                   CornerRadius="18" BackgroundColor="#19191D" BorderColor="#34343A" HasShadow="False">
+                <Image Source="kurt_logo.png" Aspect="AspectFill"/>
+            </Frame>
+        </Grid>
+
+        <!-- Stats -->
+        <Grid Row="1" Padding="18,0,18,12" ColumnDefinitions="*,*,*" ColumnSpacing="10">
+            <Frame Padding="12" CornerRadius="16" BackgroundColor="{StaticResource Card}" BorderColor="#2A2A2F" HasShadow="False">
+                <VerticalStackLayout>
+                    <Label Text="PRODUCTS" FontSize="10" TextColor="{StaticResource Muted}"/>
+                    <Label x:Name="ProductCountLabel" Text="0" FontSize="23" FontAttributes="Bold" TextColor="White"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Grid.Column="1" Padding="12" CornerRadius="16" BackgroundColor="{StaticResource Card}" BorderColor="#2A2A2F" HasShadow="False">
+                <VerticalStackLayout>
+                    <Label Text="SERVICES" FontSize="10" TextColor="{StaticResource Muted}"/>
+                    <Label x:Name="ServiceCountLabel" Text="0" FontSize="23" FontAttributes="Bold" TextColor="White"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame Grid.Column="2" Padding="12" CornerRadius="16" BackgroundColor="{StaticResource Card}" BorderColor="#2A2A2F" HasShadow="False">
+                <VerticalStackLayout>
+                    <Label Text="CART" FontSize="10" TextColor="{StaticResource Muted}"/>
+                    <Label x:Name="CartCountLabel" Text="0" FontSize="23" FontAttributes="Bold" TextColor="{StaticResource Red}"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="18,0,18,20" Spacing="12">
+
+                <!-- Products -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="PRODUCTS" FontSize="16" FontAttributes="Bold" TextColor="White"/>
+                    <Button Grid.Column="1" Text="+ ADD PRODUCT" Clicked="AddProductClicked"
+                            BackgroundColor="{StaticResource Red}" TextColor="White" CornerRadius="14" Padding="14,8"/>
+                </Grid>
+
+                <SearchBar x:Name="ProductSearch" Placeholder="Search products, brand, model..."
+                           TextChanged="ProductSearchChanged" BackgroundColor="#19191D" TextColor="White" PlaceholderColor="#77777E"/>
+
+                <CollectionView x:Name="ProductsView" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="12" Margin="0,0,0,8" CornerRadius="17" BackgroundColor="{StaticResource Card}" BorderColor="#2A2A2F" HasShadow="False">
+                                <Grid ColumnDefinitions="58,*,Auto" ColumnSpacing="12">
+                                    <Frame Padding="0" WidthRequest="58" HeightRequest="58" CornerRadius="14" BackgroundColor="#25252A" BorderColor="#333338" HasShadow="False">
+                                        <Image Source="kurt_logo.png" Aspect="AspectFill"/>
+                                    </Frame>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" TextColor="White"/>
+                                        <Label Text="{Binding Brand}" FontSize="11" TextColor="{StaticResource Muted}"/>
+                                        <Label Text="{Binding Model}" FontSize="11" TextColor="{StaticResource Muted}"/>
+                                        <Label Text="{Binding Stocks, StringFormat='Stock: {0}'}" FontSize="11" TextColor="{StaticResource Muted}"/>
+                                        <Label Text="{Binding Price, StringFormat='₱{0:N2}'}" FontSize="14" FontAttributes="Bold" TextColor="{StaticResource Red}"/>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="2" Spacing="5" VerticalOptions="Center">
+                                        <Button Text="+" WidthRequest="48" HeightRequest="40" Padding="0" CornerRadius="12"
+                                                BackgroundColor="{StaticResource Red}" TextColor="White"
+                                                CommandParameter="{Binding .}" Clicked="AddProductToCartClicked"/>
+                                        <Button Text="⋮" WidthRequest="48" HeightRequest="34" Padding="0" CornerRadius="10"
+                                                BackgroundColor="#29292E" TextColor="White"
+                                                CommandParameter="{Binding .}" Clicked="ProductMenuClicked"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Services -->
+                <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,0">
+                    <Label Text="SERVICES / LABOR" FontSize="16" FontAttributes="Bold" TextColor="White"/>
+                    <Button Grid.Column="1" Text="+ ADD SERVICE" Clicked="AddServiceClicked"
+                            BackgroundColor="#29292E" TextColor="White" CornerRadius="14" Padding="14,8"/>
+                </Grid>
+
+                <SearchBar x:Name="ServiceSearch" Placeholder="Search services / labor..."
+                           TextChanged="ServiceSearchChanged" BackgroundColor="#19191D" TextColor="White" PlaceholderColor="#77777E"/>
+
+                <CollectionView x:Name="ServicesView" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="14" Margin="0,0,0,8" CornerRadius="17" BackgroundColor="{StaticResource Card}" BorderColor="#2A2A2F" HasShadow="False">
+                                <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding LaborName}" FontAttributes="Bold" FontSize="16" TextColor="White"/>
+                                        <Label Text="LABOR / SERVICE" FontSize="10" TextColor="{StaticResource Muted}"/>
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="1" Text="{Binding Price, StringFormat='₱{0:N2}'}"
+                                           VerticalOptions="Center" FontAttributes="Bold" TextColor="{StaticResource Red}"/>
+                                    <Button Grid.Column="2" Text="+" WidthRequest="45" HeightRequest="40" Padding="0" CornerRadius="12"
+                                            BackgroundColor="{StaticResource Red}" TextColor="White"
+                                            CommandParameter="{Binding .}" Clicked="AddServiceToCartClicked"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Cart bar -->
+        <Grid Grid.Row="3" Padding="18,10,18,18" BackgroundColor="#101014" ColumnDefinitions="*,Auto">
+            <VerticalStackLayout>
+                <Label Text="CURRENT ORDER" FontSize="10" TextColor="{StaticResource Muted}"/>
+                <Label x:Name="CartTotalLabel" Text="₱0.00" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            </VerticalStackLayout>
+            <Button Grid.Column="1" Text="VIEW CART  →" Clicked="OpenCartClicked"
+                    BackgroundColor="{StaticResource Red}" TextColor="White" CornerRadius="15" Padding="20,0"/>
+        </Grid>
+    </Grid>
+</ContentPage>

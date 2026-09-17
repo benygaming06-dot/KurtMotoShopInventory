@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KurtDhylanMotoShopInventory.ProductEditorPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="#0B0B0D" Title="Product">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+            <Label Text="PRODUCT DETAILS" FontSize="25" FontAttributes="Bold" TextColor="White"/>
+            <Entry x:Name="BrandEntry" Placeholder="Brand (Honda, Yamaha...)" TextColor="White" PlaceholderColor="#77777E"/>
+            <Entry x:Name="ModelEntry" Placeholder="Model (Click V3, Mio...)" TextColor="White" PlaceholderColor="#77777E"/>
+            <Entry x:Name="NameEntry" Placeholder="Product name" TextColor="White" PlaceholderColor="#77777E"/>
+            <Entry x:Name="PriceEntry" Placeholder="Price" Keyboard="Numeric" TextColor="White" PlaceholderColor="#77777E"/>
+            <Entry x:Name="StocksEntry" Placeholder="Stocks" Keyboard="Numeric" TextColor="White" PlaceholderColor="#77777E"/>
+            <Button Text="SAVE PRODUCT" Clicked="SaveClicked" BackgroundColor="#F20D18" TextColor="White" CornerRadius="15" HeightRequest="52"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

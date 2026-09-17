@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="KurtDhylanMotoShopInventory.ReceiptPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="#0B0B0D" Title="Receipt">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="RECEIPT" FontSize="30" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+            <Label Text="KURT DHYLAN MOTO SHOP" FontSize="15" CharacterSpacing="2" TextColor="#F20D18" HorizontalOptions="Center"/>
+            <BoxView HeightRequest="1" BackgroundColor="#333338"/>
+            <Label x:Name="DateLabel" TextColor="#9B9BA3" HorizontalOptions="Center"/>
+            <Entry x:Name="CustomerNameEntry" Placeholder="Customer name (optional)" TextColor="White" PlaceholderColor="#77777E"/>
+            <VerticalStackLayout x:Name="ItemsLayout" Spacing="7"/>
+            <BoxView HeightRequest="1" BackgroundColor="#333338"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="TOTAL" FontAttributes="Bold" TextColor="White"/>
+                <Label Grid.Column="1" x:Name="TotalLabel" FontSize="20" FontAttributes="Bold" TextColor="#F20D18"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="PAYMENT" TextColor="#9B9BA3"/>
+                <Label Grid.Column="1" x:Name="PaymentLabel" TextColor="White"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="CHANGE" TextColor="#9B9BA3"/>
+                <Label Grid.Column="1" x:Name="ChangeLabel" TextColor="White"/>
+            </Grid>
+            <Button Text="DONE" Clicked="DoneClicked" BackgroundColor="#F20D18" TextColor="White" HeightRequest="52" CornerRadius="15"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
